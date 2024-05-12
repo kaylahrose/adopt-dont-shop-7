@@ -9,18 +9,17 @@
 <% end %>
 
 <%= form_with url: "/applicants/#{@applicant.id}", method: :get, local: true do |f| %>
-    <%= f.label :search, "Add a Pet to this Application" %>
-    <%= f.text_field :search %><br>
-    <%= f.submit "Search" %>
+  <%= f.label :search, "Add a Pet to this Application" %>
+  <%= f.text_field :search %><br>
+  <%= f.submit "Search" %>
 <% end %>
-<% if @pet_find %>
-  <% @pet_find.each do |pet| %>
-  <%= pet.name %> 
-    <%= form_with url: "/applicantpets", method: :post, local: true do |f| %>
-        <%= f.hidden_field :applicant_id, value: @applicant.id %>
-        <%= f.hidden_field :pet_id, value: pet.id %>
-        <%= f.submit "Adopt this Pet"%>
-    <% end %>
+
+<% @pet_find&.each do |pet| %>
+<%= pet.name %> 
+  <%= form_with url: "/applicantpets", method: :post, local: true do |f| %>
+      <%= f.hidden_field :applicant_id, value: @applicant.id %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= f.submit "Adopt this Pet"%>
   <% end %>
 <% end %>
 
